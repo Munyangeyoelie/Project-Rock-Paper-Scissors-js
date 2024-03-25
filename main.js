@@ -52,3 +52,29 @@ function playGame() {
     playGame();
   }
 }
+const form = document.querySelector("#game-form");
+const message = document.querySelector(".game-message");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const move = document.querySelector('input[name="move"]:checked').value;
+  const response = playRound(move);
+  message.innerHTML = response;
+});
+
+function playRound(move) {
+  const responses = {
+    rock: "Computer chose rock.",
+    paper: "Computer chose paper.",
+    scissors: "Computer chose scissors.",
+  };
+  const computerMove =
+    Math.random() < 0.33 ? "rock" : move === "rock" ? "scissors" : "paper";
+  const winner = movesTie(move, computerMove)
+    ? "It's a tie!"
+    : responses[move] + " You lose!";
+  return winner;
+}
+
+function movesTie(playerMove, computerMove) {
+  return playerMove === computerMove;
+}

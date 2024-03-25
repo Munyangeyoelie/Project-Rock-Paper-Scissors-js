@@ -1,32 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project-Rock-Paper-Scissors-js Game</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Rock, Paper, Scissors</title>
+    <style>
+      .game-container {
+        width: 300px;
+        margin: 0 auto;
+      }
+      .game-message {
+        text-align: center;
+      }
+      .game-message p {
+        margin-bottom: 0;
+      }
+    </style>
   </head>
   <body>
-    <h1>Rock-Paper-Scissors-js Game</h1>
-    <div id="container">
-      <div id="game">
-        <div id="game-board">
-          <div id="player">
-            <div id="player-name">Player</div>
-            <div id="player-score">0</div>
-          </div>
-          <div id="computer">
-            <div id="computer-name">Computer</div>
-            <div id="computer-score">0</div>
-          </div>
-        </div>
-        <div id="game-options" class="game-options-all">
-          <div id="game-option-1">Rock</div>
-          <div id="game-option-2">Paper</div>
-          <div id="game-option-3">Scissors</div>
-        </div>
+    <div class="game-container">
+      <div class="game-message">
+        <p>Rock, Paper, Scissors!</p>
+        <p>Make your move:</p>
       </div>
+      <form id="game-form">
+        <input type="radio" id="rock" name="move" value="rock" checked />
+        <label for="rock">Rock</label>
+        <input type="radio" id="paper" name="move" value="paper" />
+        <label for="paper">Paper</label>
+        <input type="radio" id="scissors" name="move" value="scissors" />
+        <label for="scissors">Scissors</label>
+        <button type="submit">Submit</button>
+      </form>
     </div>
-    <script src="main.js"></script>
+    <script>
+      const form = document.querySelector("#game-form");
+      const message = document.querySelector(".game-message");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const move = document.querySelector('input[name="move"]:checked').value;
+        const response = playRound(move);
+        message.innerHTML = response;
+      });
+      function playRound(move) {
+        const responses = {
+          rock: "Computer chose rock.",
+          paper: "Computer chose paper.",
+          scissors: "Computer chose scissors.",
+        };
+        const computerMove =
+          Math.random() < 0.33
+            ? "rock"
+            : move === "rock"
+            ? "scissors"
+            : "paper";
+        const winner = movesTie(move, computerMove)
+          ? "It's a tie!"
+          : responses[move] + " You lose!";
+        return winner;
+      }
+      function movesTie(playerMove, computerMove) {
+        return playerMove === computerMove;
+      }
+    </script>
   </body>
 </html>
