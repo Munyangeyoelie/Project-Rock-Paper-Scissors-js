@@ -52,10 +52,3 @@ body > h1 {
   border: 1px solid;
   background-color: rgb(108, 138, 128);
 }
-#game-option-1,
-#game-option-2,
-#game-option-3::after hover {
-  background-color: rgb(108, 138, 128);
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
-}
